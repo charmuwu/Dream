@@ -1,12 +1,10 @@
-using System.Collections;
+    using System.Collections;
 using UnityEngine;
 
 public class Controller : MonoBehaviour
 {
     //variables
-
     public float moveSpeed = 5f;
-
     public float jumpForce = 400f;
 
     // LayerMask to determine what is considered ground for the player
@@ -22,6 +20,7 @@ public class Controller : MonoBehaviour
 
     //player tracking
     bool isGrounded = false;
+    bool lookRight = true;
 
     // hold player motion in this timestep
 	float _vx;
@@ -51,12 +50,37 @@ public class Controller : MonoBehaviour
 		// down to the groundCheck position and see if collected with gameobjects on the
 		// whatIsGround layer
 		isGrounded = Physics2D.Linecast(_transform.position, groundCheck.position, whatIsGround);
-
-        //this will be fly for Goose but jump for now
-        if(isGrounded && Input.GetButtonDown("Jump"))
+          
+        //this will be fly for Goose but jump for now  
+        if (isGrounded && Input.GetButtonDown("Jump"))
         {
             DoJump();
         }
+    }
+
+    void LateUpdate()
+    {
+        // Allow the character model to flip if moving left or right
+        // Get current scale
+        Vector3 localScale = _transform.localScale;
+
+        // Determine if which way they are moving for flip
+        if (_vx > 0)
+        {
+            lookRight = true;
+        }
+        else if (_vx < 0)
+        {
+            lookRight = false;
+        }
+        // Checks the scale.x for the character
+        // If it isnt then multiplies by -1 to apply the flip
+        if (((lookRight) && (localScale.x < 0)) || ((!lookRight) && (localScale.x > 0)))
+        {
+            localScale.x *= -1;
+        }
+        // Applies the character flip
+        _transform.localScale = localScale;
     }
 
     void DoJump(){
