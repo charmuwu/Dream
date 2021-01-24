@@ -23,15 +23,25 @@ public class CharacterSwitch : MonoBehaviour
 
     //first prefab we load next
     int prefabNumber = 1;
+        
+    //Vector for the spawn point location
+    public Vector3 spawn = new Vector3();    
+    
 
     void Start()
     {
+        //Sets the location of spawn point
+        spawn.x = -5f;
+        spawn.y = 11f;
+
         currentCharacter = Instantiate<GameObject>(
-            prefabCharacter0, Vector3.zero,
+            prefabCharacter0, spawn,
             Quaternion.identity);
+
     }
 
-    void Update(){
+    void Update()
+    {
         // change character on left mouse button
         if (Input.GetKey("f"))
         {
@@ -46,27 +56,27 @@ public class CharacterSwitch : MonoBehaviour
 
                 if (prefabNumber == 0)
                 {
-                    currentCharacter = Instantiate(prefabCharacter0, 
+                    currentCharacter = Instantiate(prefabCharacter0,
                         position, Quaternion.identity);
                 }
                 else if (prefabNumber == 1)
                 {
-                    currentCharacter = Instantiate(prefabCharacter1, 
+                    currentCharacter = Instantiate(prefabCharacter1,
                         position, Quaternion.identity);
                 }
                 else if (prefabNumber == 2)
                 {
-                    currentCharacter = Instantiate(prefabCharacter2, 
+                    currentCharacter = Instantiate(prefabCharacter2,
                         position, Quaternion.identity);
                 }
                 else if (prefabNumber == 3)
                 {
-                    currentCharacter = Instantiate(prefabCharacter3, 
+                    currentCharacter = Instantiate(prefabCharacter3,
                         position, Quaternion.identity);
                 }
                 else if (prefabNumber == 4)
                 {
-                    currentCharacter = Instantiate(prefabCharacter4, 
+                    currentCharacter = Instantiate(prefabCharacter4,
                         position, Quaternion.identity);
                 }
 
