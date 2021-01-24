@@ -29,7 +29,7 @@ public class Controller : MonoBehaviour
 
     void Awake(){
 
-        Instantiate ()
+        _transform = GetComponent<Transform> ();
 
         _rigidbody = GetComponent<Rigidbody2D> ();
 		if (_rigidbody==null) // if Rigidbody is missing
