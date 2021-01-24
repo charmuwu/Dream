@@ -25,7 +25,10 @@ public class CharacterSwitch : MonoBehaviour
     int prefabNumber = 1;
         
     //Vector for the spawn point location
-    public Vector3 spawn = new Vector3();    
+    public Vector3 spawn = new Vector3();
+
+    public Camera camera;
+    FollowCamera followC;  
     
 
     void Start()
@@ -37,6 +40,9 @@ public class CharacterSwitch : MonoBehaviour
         currentCharacter = Instantiate<GameObject>(
             prefabCharacter0, spawn,
             Quaternion.identity);
+
+        followC = camera.GetComponent<FollowCamera>();
+        followC.target = currentCharacter
 
     }
 
