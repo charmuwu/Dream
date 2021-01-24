@@ -9,9 +9,19 @@ public class Controller : MonoBehaviour
 
     public float jumpForce = 400f;
 
+    // LayerMask to determine what is considered ground for the player
+	public LayerMask whatIsGround; //Put the prefab of the ground here
+
+	// Transform just below feet for checking if player is grounded
+	public Transform groundCheck; //Insert the layer here
+
     // store references to components on the gameObject
     Rigidbody2D _rigidbody;
     GameObject _gameobject;
+    Transform _transform;
+
+    //player tracking
+    bool isGrounded = false;
 
     // hold player motion in this timestep
 	float _vx;
@@ -37,8 +47,13 @@ public class Controller : MonoBehaviour
         // Change the actual velocity on the rigidbody
 		_rigidbody.velocity = new Vector2(_vx * moveSpeed, _vy);
 
+        // Check to see if character is grounded by raycasting from the middle of the player
+		// down to the groundCheck position and see if collected with gameobjects on the
+		// whatIsGround layer
+		isGrounded = Physics2D.Linecast(_transform.position, groundCheck.position, whatIsGround);
+
         //this will be fly for Goose but jump for now
-        if(Input.GetButtonDown("Jump"))
+        if(isGrounded && Input.GetButtonDown("Jump"))
         {
             DoJump();
         }
